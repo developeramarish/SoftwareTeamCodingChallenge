@@ -3,3 +3,9 @@
 ################################################################################
 
 /.vs/SoftwareCodingChallenge/v14
+/ConsoleUI/bin/Debug
+/ConsoleUI/obj/Debug
+/PalindromesFinder/bin/Debug
+/PalindromesFinder/obj/Debug
+/UnitTests/bin/Debug
+/UnitTests/obj/Debug
