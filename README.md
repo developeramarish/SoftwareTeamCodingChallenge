@@ -4,7 +4,7 @@
 Application that finds the 3 longest unique palindromes in a supplied string. The application returns the 3 longest palindromes, their respective start index and length, in descending order of length.
 
 * The program only keeps track of the longest palindromes for a given center (i.e. character in input string).
-* Only latin letters from English alphabet can be used (in lower case!)
+* Only latin letters from English alphabet can be used (in lower case!) - no spacing allowed between character
 
 My first implementation of this problem had O(n^2) complexity. Noticing that palindrome is centered either on a letter or between two letters, I was scanning all 2N+1 possible centres and kept track of the longest palindrome for that centre (we are not interested in the "children" palindromes within a "parent" palindrome) 
 
@@ -12,20 +12,36 @@ After a bit of research, I did find out that same results could be achieved in l
 
 ## Code Example
 
-`PalindromesFinder` is the model that allows to find all the palindromes in a given string. The model allows client code to then further filter the resulting palindromes (stored in `Result` object)
+`PalindromesFinder` is the model that allows to find all the palindromes in a given string. Client code can then further filter the resulting palindromes (stored in `Result` object), by using Linq queries or else.
 
-For instance, to get all the distinct palindromes:
+For instance, to get all the *distinct* palindromes:
 
     var model = new PalindromesFinder();
     model.Run();
     model.GetResults().GroupBy(p => p.Palindromes)
       .Select(grp => grp.First());;
     
+...or to get the longest palindromes first:
+
+    model.GetResults().OrderByDescending(p => p.Palindromes.Length);
+
+...or to get the *unique* palindromes only:
+
+    model.GetResults().GroupBy(p => p.Palindromes)
+        .Where(grp => grp.Count() == 1).SelectMany(o => o);
+
 It is client code's responsibility to catch error thrown by `PalindromesFinder`
+
+    try
+    {
+        model.String = ...
+        model.Run();
+    } catch (...)
 
 ## Installation
 Just clone the git repository onto your machine. 
 The code has been written in C# using Visual Studio 2017 (free version) - it has also been tested using Visual Studio 2015
+You might have to manually choose ConsoleUI as starting project.
 
 ## Tests
 * One letter palindrome
@@ -39,5 +55,4 @@ Valentin Roy (valentin.aj.roy@gmail.com)
 
 ## Links
 [Manacher's algorithm](https://en.wikipedia.org/wiki/Longest_palindromic_substring)
-
 
