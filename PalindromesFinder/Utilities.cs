@@ -25,7 +25,7 @@ namespace SoftwareCodingChallenge.PalindromesFinder
             int radius;
             int[,] radii = new int[2, N + 1];
 
-            s = "@" + s + "#"; //Adding these boundaries makes the search easier and cleaner
+            s = "@" + s + "#"; //Adding these boundaries makes the search easier and cleaner (avoid special treatments for "boundary conditions" at i = 1 and i = N)
 
             for (j = 0; j <= 1; j++)
             {

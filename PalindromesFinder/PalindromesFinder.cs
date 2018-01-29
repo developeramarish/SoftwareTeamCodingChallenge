@@ -57,19 +57,35 @@ namespace SoftwareCodingChallenge.PalindromesFinder
 
                 //Store all obtained palindromes in a List
                 _palindromes.Clear();
-                _palindromes.Add(new Results { Index = 0, Palindrome = _string[0].ToString() }); //first character of the string IS a palindrome!
-                for (int i = 1; i < _string.Length; i++)
+                //_palindromes.Add(new Results { Index = 0, Palindrome = _string[0].ToString() }); //first character of the string IS a palindrome!
+                //for (int i = 1; i < _string.Length; i++)
+                //{
+                //    for (int j = 0; j <= 1; j++)
+                //    {
+                //        int radius = radii[j, i];
+                //        int start = i - 1 - radius;
+                //        if (radius > 0)
+                //        {
+                //            _palindromes.Add(new Results { Index = start, Palindrome = _string.Substring(start, 2 * radius + j) });
+                //        }
+                //    }
+                //    _palindromes.Add(new Results { Index = i, Palindrome = _string[i].ToString() }); //single letters ARE palindromes!
+                //}
+                int radius = -1, start = -1;
+                for (int i = 1; i <= _string.Length; i++)
                 {
-                    for (int j = 0; j <= 1; j++)
+                    //Even palindromes
+                    radius = radii[0, i];
+                    start = i - 1 - radius;
+                    if (radius > 0)
                     {
-                        int radius = radii[j, i];
-                        int start = i - 1 - radius;
-                        if (radius > 0)
-                        {
-                            _palindromes.Add(new Results { Index = start, Palindrome = _string.Substring(start, 2 * radius + j) });
-                        }
+                        _palindromes.Add(new Results { Index = start, Palindrome = _string.Substring(start, 2 * radius) });
                     }
-                    _palindromes.Add(new Results { Index = i, Palindrome = _string[i].ToString() }); //single letters ARE palindromes!
+
+                    //Odd palindromes
+                    radius = radii[1, i];
+                    start = i - 1 - radius;
+                    _palindromes.Add(new Results { Index = start, Palindrome = _string.Substring(start, 2 * radius + 1) }); //single letters ARE palindromes!
                 }
             }
             else
