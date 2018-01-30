@@ -57,8 +57,7 @@ namespace SoftwareCodingChallenge.UnitTests
             }
             model.String = sb.ToString();
             model.Run();
-            var res = model.GetResults().OrderByDescending(p => p.Palindrome.Length).GroupBy(p => p.Palindrome)
-                        .Where(group => group.Count() == 1).SelectMany(o => o).Take(3).ToList();
+            var res = model.GetResults().ToList();
             foreach (var palindrome in res)
             {
                 Trace.WriteLine($"{palindrome.Palindrome}");
@@ -92,12 +91,13 @@ namespace SoftwareCodingChallenge.UnitTests
         [TestMethod]
         public void TestSinglePalindrome()
         {
-            model.String = "hannah";
+            model.String = "kayak";
             model.Run();
-            var res = model.GetResults().OrderByDescending(p => p.Palindrome.Length).GroupBy(p => p.Palindrome)
-                        .Where(group => group.Count() == 1).SelectMany(o => o).Take(3).ToList();
-            Assert.IsTrue(res[0].Palindrome.Equals("hannah") && res[0].Index == 0);
+            var res = model.GetResults().ToList();
+            Assert.IsTrue(res.Count == 1);
+            Assert.IsTrue(res[0].Palindrome.Equals("kayak") && res[0].Index == 0);
         }
+
 
         [TestMethod]
         public void TestSingleLetter()

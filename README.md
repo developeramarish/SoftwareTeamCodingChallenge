@@ -1,14 +1,13 @@
 # MAT Software Team Coding Challenge
 
 ## Synopsis
-Application that finds the 3 longest unique palindromes in a supplied string. The application returns the 3 longest palindromes, their respective start index and length, in descending order of length.
 
-* The program only keeps track of the longest palindromes for a given center (i.e. character in input string).
+`ConsoleUI` is an application that uses the `PalindromesFinder` tool to find the 3 longest unique palindromes in a supplied string. The application returns the 3 longest palindromes, their respective start index and length, in descending order of length.
+
+* The program only keeps track of the longest palindromes for a given center (i.e. character at given index in input string). For instance, at index 2 in the string "kayak", only "kayak" is returned ("aya" and "y" are not)
 * Only latin letters from English alphabet can be used (in lower case!) - no spacing allowed between character
 
-My first implementation of this problem had O(n^2) complexity. Noticing that palindrome is centered either on a letter or between two letters, I was scanning all 2N+1 possible centres and kept track of the longest palindrome for that centre (we are not interested in the "children" palindromes within a "parent" palindrome) 
-
-After a bit of research, I did find out that same results could be achieved in linear time using Manacher's algorithm (would have never found it myself, this is why I have left my previous -less elegant implementation in the code).
+All the palindromes are found using Manacher's algorithm (see **Links** section below), which is O(n^2) in time. They are then stored into a List (linear time and space), which is then filtered in order to only retain the 3 longest *unique* palindromes.
 
 ## Code Example
 
@@ -39,16 +38,18 @@ It is client code's responsibility to catch error thrown by `PalindromesFinder`
     } catch (...)
 
 ## Installation
-Just clone the git repository onto your machine. 
-The code has been written in C# using Visual Studio 2017 (free version) - it has also been tested using Visual Studio 2015
-You might have to manually choose ConsoleUI as starting project.
+
+* Just clone the git repository onto your machine. 
+* The code has been written in C# using Visual Studio 2017 (free version) - it has also been tested using Visual Studio 2015
+* You might have to manually choose ConsoleUI as starting project.
 
 ## Tests
 * One letter palindrome
-* Very long string (one million characters)
+* Very long string (one million characters - the idea was to run several of those with one million chars, one thousands, a hundred, and try to observe linearity in time but I did not have time)
 * Default string "sqrrqabccbatudefggfedvwhijkllkjihxymnnmzpop"
-* Single palindrome "hannah"
+* Single palindrome "kayak"
 * Wrong input (emtpy or null string, invalid character(s))
+* Palindrome unicity (if there exist two or more palindromes that are equal in the string, they should not be returned)
 
 ## Contributors
 Valentin Roy (valentin.aj.roy@gmail.com)
