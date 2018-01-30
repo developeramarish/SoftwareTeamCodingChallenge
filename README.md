@@ -4,7 +4,7 @@
 
 `ConsoleUI` is an application that uses the `PalindromesFinder` tool to find the 3 longest unique palindromes in a supplied string. The application returns the 3 longest palindromes, their respective start index and length, in descending order of length.
 
-* The program only keeps track of the longest palindromes for a given center (i.e. character at given index in input string). For instance, at index 2 in the string "kayak", only "kayak" is returned ("aya" and "y" are not)
+* The program only keeps track of the longest palindromes for a given center (i.e. character at given index in input string). For instance, at index 2 in the string "kayak", "kayak" will be returned but "aya" and "y" won't.
 * Only latin letters from English alphabet can be used (in lower case!) - no spacing allowed between character
 
 All the palindromes are found using Manacher's algorithm (see **Links** section below), which is O(n^2) in time. They are then stored into a List (linear time and space), which is then filtered in order to only retain the 3 longest *unique* palindromes.
@@ -39,13 +39,13 @@ It is client code's responsibility to catch error thrown by `PalindromesFinder`
 
 ## Installation
 
-* Just clone the git repository onto your machine. 
+* Just clone the git repository onto your machine, or download a zip file 
 * The code has been written in C# using Visual Studio 2017 (free version) - it has also been tested using Visual Studio 2015
 * You might have to manually choose ConsoleUI as starting project.
 
 ## Tests
 * One letter palindrome
-* Very long string (one million characters - the idea was to run several of those with one million chars, one thousands, a hundred, and try to observe linearity in time but I did not have time)
+* Very long string (one million characters - the idea was to run several of those with one million chars, one thousands, a hundred, and try to observe quadratic (on average) time complexity but I did not have time)
 * Default string "sqrrqabccbatudefggfedvwhijkllkjihxymnnmzpop"
 * Single palindrome "kayak"
 * Wrong input (emtpy or null string, invalid character(s))
