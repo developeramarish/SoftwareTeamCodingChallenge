@@ -47,7 +47,6 @@ namespace SoftwareCodingChallenge.UnitTests
         [TestMethod]
         public void TestLongString()
         {
-            //Generate a string of random lowercase letters
             Random random = new Random();
             var sb = new StringBuilder();
             for (int i = 0; i < 1000000; i++)
@@ -58,7 +57,7 @@ namespace SoftwareCodingChallenge.UnitTests
             model.String = sb.ToString();
             model.Run();
             var res = model.GetResults().ToList();
-            foreach (var palindrome in res)
+            foreach (var palindrome in res.Take(5))
             {
                 Trace.WriteLine($"{palindrome.Palindrome}");
             }
@@ -93,8 +92,8 @@ namespace SoftwareCodingChallenge.UnitTests
         {
             model.String = "kayak";
             model.Run();
-            var res = model.GetResults().ToList();
-            Assert.IsTrue(res.Count == 1);
+            var res = model.GetResults().OrderByDescending(prop => prop.Palindrome.Length).ToList();
+            Assert.IsTrue(res.Count == 5);
             Assert.IsTrue(res[0].Palindrome.Equals("kayak") && res[0].Index == 0);
         }
 

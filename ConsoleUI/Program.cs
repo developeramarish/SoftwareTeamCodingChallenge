@@ -5,6 +5,7 @@ namespace SoftwareCodingChallenge.ConsoleUI
     using System.Linq;
     using System.Text;
     using PalindromesFinder;
+    using System.Collections.Generic;
 
     class Program
     {
@@ -43,9 +44,7 @@ namespace SoftwareCodingChallenge.ConsoleUI
                     model.String = sb.ToString();
                     model.Run();
 
-                    //Filter out the UNIQUE palindromes from the returned list of palindromes, and return the three longest ones
-                    var results = model.GetResults().OrderByDescending(p => p.Palindrome.Length).GroupBy(p => p.Palindrome)
-                        .Where(group => group.Count() == 1).SelectMany(o => o).Take(3);
+                    var results = GetThreeLongestUniquePalindromes(model.GetResults());
 
                     foreach (var palindrome in results)
                     {
@@ -59,6 +58,12 @@ namespace SoftwareCodingChallenge.ConsoleUI
                     continue;
                 }
             }
+        }
+
+        public static IEnumerable<Results> GetThreeLongestUniquePalindromes(IEnumerable<Results> results)
+        {
+            return results.OrderByDescending(p => p.Palindrome.Length).GroupBy(p => p.Palindrome)
+                            .Where(group => group.Count() == 1).SelectMany(o => o).Take(3);
         }
     }
 }
